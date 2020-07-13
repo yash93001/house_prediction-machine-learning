@@ -48,11 +48,11 @@ print("Training and testing split was successful.")
 def fit_model(X,y):
     # Create cross-validation sets from the training data
     from sklearn.model_selection import GridSearchCV
-    cv_sets = ShuffleSplit(n_splits = 10, test_size = 0.20, random_state = 0)
-    from sklearn.tree import DecisionTreeRegressor
-    regressor = DecisionTreeRegressor(random_state=0)
-    params = {'max_depth': list(range(1,11))}
     from sklearn.metrics import make_scorer
+    from sklearn.tree import DecisionTreeRegressor
+    cv_sets = ShuffleSplit(n_splits = 10, test_size = 0.20, random_state = 10)
+    regressor = DecisionTreeRegressor(random_state=10)
+    params = {'max_depth': list(range(1,11))}
     scoring_fnc = make_scorer(performance_metric)
     grid = GridSearchCV(regressor,params,scoring_fnc,cv=cv_sets)
     grid = grid.fit(X, y)
